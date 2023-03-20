@@ -88,7 +88,7 @@ namespace dtp6_contacts
 
         private static void SaveContactList(string lastFileName)
         {
-            using (StreamWriter outfile = new StreamWriter(lastFileName))
+            using (StreamWriter outfile = new StreamWriter(@"C:\Users\ÄGARE\" + lastFileName))
             {
                 foreach (Person p in contactList)
                 {
