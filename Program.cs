@@ -27,58 +27,12 @@
                     if (commandLine.Length < 2)
                     {
                         lastFileName = "address.lis";
-                        using (StreamReader infile = new StreamReader(lastFileName))
-                        {
-                            string line;
-                            while ((line = infile.ReadLine()) != null)
-                            {
-                                Console.WriteLine(line);
-                                string[] attrs = line.Split('|');
-                                Person p = new Person();
-                                p.persname = attrs[0];
-                                p.surname = attrs[1];
-                                string[] phones = attrs[2].Split(';');
-                                p.phone = phones[0];
-                                string[] addresses = attrs[3].Split(';');
-                                p.address = addresses[0];
-                                for (int ix = 0; ix < contactList.Length; ix++)
-                                {
-                                    if (contactList[ix] == null)
-                                    {
-                                        contactList[ix] = p;
-                                        break;
-                                    }
-                                }
-                            }
-                        }
+                        ReadFile(lastFileName);
                     }
                     else
                     {
                         lastFileName = commandLine[1];
-                        using (StreamReader infile = new StreamReader(lastFileName))
-                        {
-                            string line;
-                            while ((line = infile.ReadLine()) != null)
-                            {
-                                Console.WriteLine(line);
-                                string[] attrs = line.Split('|');
-                                Person p = new Person();
-                                p.persname = attrs[0];
-                                p.surname = attrs[1];
-                                string[] phones = attrs[2].Split(';');
-                                p.phone = phones[0];
-                                string[] addresses = attrs[3].Split(';');
-                                p.address = addresses[0];
-                                for (int ix = 0; ix < contactList.Length; ix++)
-                                {
-                                    if (contactList[ix] == null)
-                                    {
-                                        contactList[ix] = p;
-                                        break;
-                                    }
-                                }
-                            }
-                        }
+                        ReadFile(lastFileName);
                     }
                 }
                 else if (commandLine[0] == "save")
@@ -126,6 +80,34 @@
                     Console.WriteLine($"Unknown command: '{commandLine[0]}'");
                 }
             } while (commandLine[0] != "quit");
+        }
+
+        private static void ReadFile(string lastFileName)
+        {
+            using (StreamReader infile = new StreamReader(lastFileName))
+            {
+                string line;
+                while ((line = infile.ReadLine()) != null)
+                {
+                    Console.WriteLine(line);
+                    string[] attrs = line.Split('|');
+                    Person p = new Person();
+                    p.persname = attrs[0];
+                    p.surname = attrs[1];
+                    string[] phones = attrs[2].Split(';');
+                    p.phone = phones[0];
+                    string[] addresses = attrs[3].Split(';');
+                    p.address = addresses[0];
+                    for (int ix = 0; ix < contactList.Length; ix++)
+                    {
+                        if (contactList[ix] == null)
+                        {
+                            contactList[ix] = p;
+                            break;
+                        }
+                    }
+                }
+            }
         }
 
         private static void DisplayCommands()
