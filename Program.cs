@@ -1,6 +1,5 @@
 ﻿namespace dtp6_contacts
 {
-{
     class MainClass
     {
         static Person[] contactList = new Person[100];
