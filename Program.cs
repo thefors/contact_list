@@ -23,6 +23,10 @@ namespace dtp6_contacts
                 {
                     SafeQuit(lastFileName);
                 }
+                else if (commandLine[0] == "list")
+                {
+                    //NYI: important!
+                }
                 else if (commandLine[0] == "load")
                 {
                     if (commandLine.Length < 2) // Ladda default-fil
@@ -33,7 +37,9 @@ namespace dtp6_contacts
                     else
                     {
                         lastFileName = commandLine[1]; // Ladda fil i argument
+                        // FIXME: Throws System.IO.FileNotFoundException if file not found
                         ReadFile(lastFileName);// also print each lineFromAddressFile
+                        
                     }
                 }
                 else if (commandLine[0] == "save")
@@ -58,6 +64,8 @@ namespace dtp6_contacts
                         string surname = Console.ReadLine();
                         Console.Write("phone: ");
                         string phone = Console.ReadLine();
+
+                        // NYI : insert to contact list
                     }
                     else
                     {
