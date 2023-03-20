@@ -44,9 +44,9 @@ namespace dtp6_contacts
                         SaveContactList(lastFileName);
                     }
                     else
-                    {
-                        // NYI!
-                        Console.WriteLine("Not yet implemented: save /file/");
+                    { 
+                        lastFileName = commandLine[1];
+                        SaveContactList(lastFileName);
                     }
                 }
                 else if (commandLine[0] == "new")
@@ -108,18 +108,18 @@ namespace dtp6_contacts
                 {
                     Console.WriteLine(line);
                     string[] attrs = line.Split('|');
-                    Person p = new Person();
-                    p.persname = attrs[0];
-                    p.surname = attrs[1];
+                    Person contact = new Person();
+                    contact.persname = attrs[0];
+                    contact.surname = attrs[1];
                     string[] phones = attrs[2].Split(';');
-                    p.phone = phones[0];
+                    contact.phone = phones[0];
                     string[] addresses = attrs[3].Split(';');
-                    p.address = addresses[0];
+                    contact.address = addresses[0];
                     for (int ix = 0; ix < contactList.Length; ix++)
                     {
                         if (contactList[ix] == null)
                         {
-                            contactList[ix] = p;
+                            contactList[ix] = contact;
                             break;
                         }
                     }
