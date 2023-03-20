@@ -21,8 +21,7 @@ namespace dtp6_contacts
                 commandLine = Console.ReadLine().Split(' ');
                 if (commandLine[0] == "quit")
                 {
-                    // NYI!
-                    Console.WriteLine("Not yet implemented: safe quit");
+                    SafeQuit(lastFileName);
                 }
                 else if (commandLine[0] == "load")
                 {
@@ -84,6 +83,13 @@ namespace dtp6_contacts
                 }
                 
             } while (commandLine[0] != "quit");
+        }
+                
+        private static void SafeQuit(string lastFileName)
+        {
+            // Safe quit
+            SaveContactList(lastFileName);
+            Console.WriteLine("File saved. Bye!");
         }
 
         private static void SaveContactList(string lastFileName)
