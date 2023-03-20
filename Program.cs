@@ -7,10 +7,16 @@ namespace dtp6_contacts
         static Person[] contactList = new Person[100];
         class Person
         {
-            public string persname, surname, phone, address, birthdate;
+            public string persname, surname, address, birthdate;
+            public string[] phone;
+            public string PhoneList { 
+                get { return String.Join(";", phone); }
+                private set { }
+            }
             public void Print()
             {
-                Console.WriteLine($"{persname} {surname}, {phone}, {address}, {birthdate}");
+                string phoneList = String.Join(", ", phone);
+                Console.WriteLine($"{persname} {surname}, {phoneList}; {address}; {birthdate}");
             }
 
         }
@@ -116,7 +122,7 @@ namespace dtp6_contacts
                 foreach (Person p in contactList)
                 {
                     if (p != null)
-                        outfile.WriteLine($"{p.persname};{p.surname};{p.phone};{p.address};{p.birthdate}");
+                        outfile.WriteLine($"{p.persname}|{p.surname}|{p.PhoneList}|{p.address}|{p.birthdate}");
                 }
             }
         }
@@ -131,12 +137,12 @@ namespace dtp6_contacts
                 while ((lineFromAddressFile = infile.ReadLine()) != null)
                 {
                     Console.WriteLine(lineFromAddressFile);
-                    string[] attrs = lineFromAddressFile.Split(';');
+                    string[] attrs = lineFromAddressFile.Split('|');
                     Person contact = new Person();
                     contact.persname = attrs[0];
                     contact.surname = attrs[1];
                     string[] phones = attrs[2].Split(';');
-                    contact.phone = phones[0]; //FIXME: this drops all numbers but the first
+                    contact.phone = phones; //FIXME: this drops all numbers but the first
                     string[] addresses = attrs[3].Split(';');
                     contact.address = addresses[0];//FIXME: drops all addresses but the first
                     for (int ix = 0; ix < contactList.Length; ix++)
