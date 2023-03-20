@@ -107,13 +107,14 @@ namespace dtp6_contacts
         // Method for loading a file and add to contactList[]
         private static void ReadFile(string lastFileName)
         {
-            using (StreamReader infile = new StreamReader(@"C:\Users\ÄGARE\"+ lastFileName))
+            string fullFileName = @"C:\Users\ÄGARE\" + lastFileName;
+            using (StreamReader infile = new StreamReader(fullFileName))
             {
                 string line;
                 while ((line = infile.ReadLine()) != null)
                 {
                     Console.WriteLine(line);
-                    string[] attrs = line.Split('|');
+                    string[] attrs = line.Split(';');
                     Person contact = new Person();
                     contact.persname = attrs[0];
                     contact.surname = attrs[1];
