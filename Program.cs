@@ -28,12 +28,12 @@ namespace dtp6_contacts
                     if (commandLine.Length < 2) // Ladda default-fil
                     {
                         //lastFileName = "address.lis"; FIXME: Redan satt
-                        ReadFile(lastFileName);
+                        ReadFile(lastFileName); // also print each lineFromAddressFile
                     }
                     else
                     {
                         lastFileName = commandLine[1]; // Ladda fil i argument
-                        ReadFile(lastFileName);
+                        ReadFile(lastFileName);// also print each lineFromAddressFile
                     }
                 }
                 else if (commandLine[0] == "save")
@@ -110,18 +110,18 @@ namespace dtp6_contacts
             string fullFileName = @"C:\Users\ÄGARE\" + lastFileName;
             using (StreamReader infile = new StreamReader(fullFileName))
             {
-                string line;
-                while ((line = infile.ReadLine()) != null)
+                string lineFromAddressFile;
+                while ((lineFromAddressFile = infile.ReadLine()) != null)
                 {
-                    Console.WriteLine(line);
-                    string[] attrs = line.Split(';');
+                    Console.WriteLine(lineFromAddressFile);
+                    string[] attrs = lineFromAddressFile.Split(';');
                     Person contact = new Person();
                     contact.persname = attrs[0];
                     contact.surname = attrs[1];
                     string[] phones = attrs[2].Split(';');
-                    contact.phone = phones[0];
+                    contact.phone = phones[0]; //FIXME: this drops all numbers but the first
                     string[] addresses = attrs[3].Split(';');
-                    contact.address = addresses[0];
+                    contact.address = addresses[0];//FIXME: drops all addresses but the first
                     for (int ix = 0; ix < contactList.Length; ix++)
                     {
                         if (contactList[ix] == null)
