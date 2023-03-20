@@ -8,6 +8,11 @@ namespace dtp6_contacts
         class Person
         {
             public string persname, surname, phone, address, birthdate;
+            public void Print()
+            {
+                Console.WriteLine($"{persname} {surname}, {phone}, {address}, {birthdate}");
+            }
+
         }
         public static void Main(string[] args)
         {
@@ -23,9 +28,13 @@ namespace dtp6_contacts
                 {
                     SafeQuit(lastFileName);
                 }
-                else if (commandLine[0] == "list")
+                else if (commandLine[0] == "list")  
                 {
-                    //NYI: important!
+                    foreach (Person p in contactList)
+                    {
+                        if(p != null)
+                            p.Print(); // FIXME: System.NullReferenceException if doesn't exist
+                    }
                 }
                 else if (commandLine[0] == "load")
                 {
