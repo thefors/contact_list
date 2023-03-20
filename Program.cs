@@ -1,4 +1,6 @@
-﻿namespace dtp6_contacts
+﻿using System.ComponentModel.Design;
+
+namespace dtp6_contacts
 {
     class MainClass
     {
@@ -9,7 +11,7 @@
         }
         public static void Main(string[] args)
         {
-            string lastFileName = @"C:\Users\ÄGARE\address.lis";
+            string lastFileName = "address.lis";
             string[] commandLine;
             Console.WriteLine("Hello and welcome to the contact list");
             DisplayCommands();
@@ -26,7 +28,7 @@
                 {
                     if (commandLine.Length < 2) // Ladda default-fil
                     {
-                        //lastFileName = "address.lis"; 
+                        //lastFileName = "address.lis"; FIXME: Redan satt
                         ReadFile(lastFileName);
                     }
                     else
@@ -39,14 +41,7 @@
                 {
                     if (commandLine.Length < 2)
                     {
-                        using (StreamWriter outfile = new StreamWriter(lastFileName))
-                        {
-                            foreach (Person p in contactList)
-                            {
-                                if (p != null)
-                                    outfile.WriteLine($"{p.persname};{p.surname};{p.phone};{p.address};{p.birthdate}");
-                            }
-                        }
+                        SaveContactList(lastFileName);
                     }
                     else
                     {
@@ -67,24 +62,46 @@
                     }
                     else
                     {
-                        // NYI!
+                        // NYI:
                         Console.WriteLine("Not yet implemented: new /person/");
                     }
+                    // TBD: Save contactList
                 }
                 else if (commandLine[0] == "help")
                 {
                     DisplayCommands();
                 }
+                else if (commandLine[0] == "edit")
+                {
+                    // NYI: edit a contact in external editor
+                    Console.WriteLine("Not yet implemented - edit a contact in external editor");
+                }
+
+
                 else
                 {
                     Console.WriteLine($"Unknown command: '{commandLine[0]}'");
                 }
+                
             } while (commandLine[0] != "quit");
         }
 
+        private static void SaveContactList(string lastFileName)
+        {
+            using (StreamWriter outfile = new StreamWriter(lastFileName))
+            {
+                foreach (Person p in contactList)
+                {
+                    if (p != null)
+                        outfile.WriteLine($"{p.persname};{p.surname};{p.phone};{p.address};{p.birthdate}");
+                }
+            }
+        }
+
+        // Method for loading a file and add to contactList[]
         private static void ReadFile(string lastFileName)
         {
-            using (StreamReader infile = new StreamReader(lastFileName))
+            using (StreamReader infile = new StreamReader(@"C:\Users\ÄGARE\"+ lastFileName))
             {
                 string line;
                 while ((line = infile.ReadLine()) != null)
