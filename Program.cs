@@ -9,7 +9,7 @@
         }
         public static void Main(string[] args)
         {
-            string lastFileName = "address.lis";
+            string lastFileName = @"C:\Users\ÄGARE\address.lis";
             string[] commandLine;
             Console.WriteLine("Hello and welcome to the contact list");
             DisplayCommands();
@@ -24,14 +24,14 @@
                 }
                 else if (commandLine[0] == "load")
                 {
-                    if (commandLine.Length < 2)
+                    if (commandLine.Length < 2) // Ladda default-fil
                     {
-                        lastFileName = "address.lis";
+                        //lastFileName = "address.lis"; 
                         ReadFile(lastFileName);
                     }
                     else
                     {
-                        lastFileName = commandLine[1];
+                        lastFileName = commandLine[1]; // Ladda fil i argument
                         ReadFile(lastFileName);
                     }
                 }
