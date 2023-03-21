@@ -145,6 +145,7 @@ namespace dtp6_contacts
                     contact.phone = phones; //FIXME: this drops all numbers but the first
                     string[] addresses = attrs[3].Split(';');
                     contact.address = addresses[0];//FIXME: drops all addresses but the first
+                    contact.birthdate = attrs[4];
                     for (int ix = 0; ix < contactList.Length; ix++)
                     {
                         if (contactList[ix] == null)
